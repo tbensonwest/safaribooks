@@ -70,7 +70,7 @@ class Display:
         self.logger.info(str(message))  # TODO: "utf-8", "replace"
 
     def out(self, put):
-        sys.stdout.write("\r" + " " * self.columns + "\r" + str(put, "utf-8", "replace") + "\n")
+        sys.stdout.write("\r" + " " * self.columns + "\r" + str(put) + "\n")
 
     def info(self, message, state=False):
         self.log(message)
@@ -1018,7 +1018,7 @@ if __name__ == "__main__":
     )
     arguments.add_argument("--help", action="help", default=argparse.SUPPRESS, help='Show this help message.')
     arguments.add_argument(
-        "bookid", metavar='<BOOK ID>',
+        "bookid", metavar='<BOOK ID>', default='9781491991725',
         help="Book digits ID that you want to download. You can find it in the URL (X-es):"
              " `" + SAFARI_BASE_URL + "/library/view/book-name/XXXXXXXXXXXXX/`"
     )

@@ -1,4 +1,8 @@
 Books/
-
+venv/
+playlists.json
 cookies.json
 *.log
+_cookies.json
+__pycache__/
+.vscode/
