@@ -13,7 +13,6 @@ from html import escape
 from random import random
 from multiprocessing import Process, Queue, Value
 from urllib.parse import urljoin, urlsplit, urlparse
-import pickle
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 COOKIES_FILE = os.path.join(PATH, "cookies.json")
@@ -121,5 +120,26 @@ content = col.requests_provider(url="https://learning.oreilly.com/api/v2/collect
 
 json.dump(content[0], open('playlists.json', "w"))
 
-# with open('playlists.json', 'wb') as output:
-#     json.dump(content, output)
+filtered = [d for d in content if d['name'] == 'Python'][0]
+
+books = filtered['content']
+
+#TODO: filter books by meta
+# book_ids = books['metadata']['identifier']
+
+# print(book_ids)
+
+#TODO: filter list on regex of 13 digits only
+book_ids = [] 
+for i in range(0,len(books)-1):
+    if books[i]['ourn'] != None:
+        book_id = books[i]['ourn'][-13:]
+        book_ids.append(book_id)
+
+print(book_ids)
+
+
+#names = []
+# urls = map (lambda x:x[])
+# names = map (lambda x:x['name'],content)
+# print (list(names))
