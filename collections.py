@@ -13,6 +13,7 @@ from html import escape
 from random import random
 from multiprocessing import Process, Queue, Value
 from urllib.parse import urljoin, urlsplit, urlparse
+import re
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 COOKIES_FILE = os.path.join(PATH, "cookies.json")
@@ -124,17 +125,21 @@ filtered = [d for d in content if d['name'] == 'Python'][0]
 
 books = filtered['content']
 
-#TODO: filter books by meta
-# book_ids = books['metadata']['identifier']
+prog = re.compile(r"\d\d\d\d\d\d\d\d\d\d\d\d\d")
+# book_ids = [] 
+# for i in range(0,len(books)-1):
+#     if books[i]['ourn'] != None:
+#         book_id = books[i]['ourn'][-13:]
+#         if prog.match(book_id):
+#             book_ids.append(book_id)
 
-# print(book_ids)
-
-#TODO: filter list on regex of 13 digits only
 book_ids = [] 
 for i in range(0,len(books)-1):
-    if books[i]['ourn'] != None:
-        book_id = books[i]['ourn'][-13:]
-        book_ids.append(book_id)
+    if books[i]['api_url'] != None:
+        book_id = books[i]['api_url'][-14:-1]
+        if prog.match(book_id):
+            book_ids.append(book_id)
+
 
 print(book_ids)
 
